@@ -1,53 +1,170 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Star, Truck, Shield, Headphones, ArrowRight } from 'lucide-react';
+import { Star,Play, Truck, Shield, Headphones, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import ProductCard from '@/components/product/ProductCard';
 import { featuredProducts, reviews } from '@/data/products';
-import heroImage from '@/assets/hero-banner.jpg';
+import heroImage from '@/assets/hero-banner.png';
 import productShowcase from '@/assets/product-showcase.jpg';
-
 const Home = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative h-[70vh] bg-gradient-hero flex items-center overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Background with overlay */}
+      <div className="absolute inset-0 z-0">
         <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: `url(${heroImage})` }}
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat transform scale-110 md:scale-100"
+          style={{ 
+            backgroundImage: `url(https://images.unsplash.com/photo-1576566588028-4147f3842f27?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1964&q=80)`,
+            animation: 'zoomInOut 20s ease-in-out infinite'
+          }}
         >
-          <div className="absolute inset-0 bg-black/40"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-gray-900/80 to-purple-900/60"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent"></div>
         </div>
         
-        <div className="relative container mx-auto px-4 text-center text-white z-10">
-          <Badge className="mb-4 bg-white/20 text-white border-white/30">
-            New Collection Available
-          </Badge>
-          <h1 className="text-4xl md:text-6xl font-bold mb-6">
-            Premium T-Shirts
-            <span className="block text-brand-secondary">For Every Style</span>
-          </h1>
-          <p className="text-xl md:text-2xl mb-8 text-white/90 max-w-2xl mx-auto">
-            Discover our carefully curated collection of premium quality t-shirts designed for comfort, style, and durability.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/products">
-              <Button variant="hero" size="lg" className="min-w-[160px]">
-                Shop Now
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </Link>
-            <Button variant="outline" size="lg" className="min-w-[160px] border-white text-white hover:bg-white hover:text-gray-900">
-              View Collection
+        {/* Animated elements */}
+        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-indigo-600/10 rounded-full blur-3xl animate-pulse animation-delay-2000"></div>
+      </div>
+
+      {/* Content */}
+      <div className="relative container mx-auto px-4 text-center z-10 pt-20 pb-32">
+        <Badge className="mb-6 bg-white/20 text-white border-white/30 backdrop-blur-md px-4 py-1.5 text-sm font-medium animate-fade-in">
+          <span className="relative flex h-2 w-2 mr-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+          </span>
+          New Collection Available
+        </Badge>
+        
+        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+          <span className="text-white block animate-slide-up">Elevate Your Style</span>
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400 block mt-2 animate-slide-up animation-delay-200">
+            With AnantAttire
+          </span>
+        </h1>
+        
+        <p className="text-xl md:text-2xl mb-10 text-white/90 max-w-3xl mx-auto leading-relaxed animate-fade-in animation-delay-400">
+          Discover our exclusive collection of premium clothing crafted with attention to detail, perfect for those who appreciate quality and elegance in every stitch.
+        </p>
+        
+        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in animation-delay-600">
+          <Link to="/products">
+            <Button 
+              size="lg" 
+              className="min-w-[180px] bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white border-0 shadow-lg shadow-purple-500/30 hover:shadow-purple-500/40 transition-all duration-300 transform hover:-translate-y-1"
+            >
+              Shop Collection
+              <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </Button>
+          </Link>
+          
+          <Button 
+            variant="outline" 
+            size="lg" 
+            className="min-w-[180px] border-white/30 text-white bg-white/10 backdrop-blur-md hover:bg-white hover:text-gray-900 group"
+          >
+            <Play className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
+            Watch Story
+          </Button>
+        </div>
+        
+        {/* Features */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16 max-w-4xl mx-auto animate-fade-in animation-delay-800">
+          <div className="flex flex-col items-center text-white/80 bg-white/5 backdrop-blur-md rounded-xl p-4 border border-white/10">
+            <div className="bg-purple-500/10 p-3 rounded-full mb-3">
+              <Truck className="h-6 w-6 text-purple-300" />
+            </div>
+            <h3 className="font-semibold text-white">Free Shipping</h3>
+            <p className="text-sm mt-1">On orders over ₹5000</p>
+          </div>
+          
+          <div className="flex flex-col items-center text-white/80 bg-white/5 backdrop-blur-md rounded-xl p-4 border border-white/10">
+            <div className="bg-pink-500/10 p-3 rounded-full mb-3">
+              <Shield className="h-6 w-6 text-pink-300" />
+            </div>
+            <h3 className="font-semibold text-white">Quality Assurance</h3>
+            <p className="text-sm mt-1">Premium materials</p>
+          </div>
+          
+          <div className="flex flex-col items-center text-white/80 bg-white/5 backdrop-blur-md rounded-xl p-4 border border-white/10">
+            <div className="bg-indigo-500/10 p-3 rounded-full mb-3">
+              <Star className="h-6 w-6 text-indigo-300" />
+            </div>
+            <h3 className="font-semibold text-white">5-Star Reviews</h3>
+            <p className="text-sm mt-1">Rated by thousands</p>
           </div>
         </div>
-      </section>
+      </div>
+      
+      {/* Scroll indicator */}
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10 animate-bounce">
+        <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
+          <div className="w-1 h-3 bg-white/50 rounded-full mt-2"></div>
+        </div>
+      </div>
+
+      {/* Custom animation styles */}
+      <style>{`
+        @keyframes zoomInOut {
+          0% { transform: scale(1.1); }
+          50% { transform: scale(1.15); }
+          100% { transform: scale(1.1); }
+        }
+        
+        .animate-slide-up {
+          animation: slideUp 0.8s ease-out forwards;
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        
+        @keyframes slideUp {
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
+        .animate-fade-in {
+          animation: fadeIn 1s ease-out forwards;
+          opacity: 0;
+        }
+        
+        @keyframes fadeIn {
+          to {
+            opacity: 1;
+          transform: translateY(0);
+          }
+        }
+        
+        .animation-delay-200 {
+          animation-delay: 0.2s;
+        }
+        
+        .animation-delay-400 {
+          animation-delay: 0.4s;
+        }
+        
+        .animation-delay-600 {
+          animation-delay: 0.6s;
+        }
+        
+        .animation-delay-800 {
+          animation-delay: 0.8s;
+        }
+        
+        .animation-delay-2000 {
+          animation-delay: 2s;
+        }
+      `}</style>
+    </section>
 
       {/* Features Section */}
-      <section className="py-16 bg-muted/30">
+      {/* <section className="py-16 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center">
@@ -73,7 +190,7 @@ const Home = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Featured Products */}
       <section className="py-16">
