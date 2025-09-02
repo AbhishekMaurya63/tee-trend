@@ -113,7 +113,8 @@ export const reviews: Review[] = [
     rating: 5,
     comment: 'Amazing quality! The fabric is so soft and the fit is perfect. I ordered three more in different colors.',
     date: '2024-01-15',
-    avatar: '/placeholder.svg'
+    avatar: '/placeholder.svg',
+    verified:true
   },
   {
     id: '2',
@@ -121,7 +122,8 @@ export const reviews: Review[] = [
     rating: 5,
     comment: 'Best t-shirts I\'ve ever bought. Great customer service and fast shipping too!',
     date: '2024-01-10',
-    avatar: '/placeholder.svg'
+    avatar: '/placeholder.svg',
+    verified:false
   },
   {
     id: '3',
@@ -129,6 +131,7 @@ export const reviews: Review[] = [
     rating: 4,
     comment: 'Love the design and quality. Sizing runs slightly large but overall very happy with my purchase.',
     date: '2024-01-05',
-    avatar: '/placeholder.svg'
+    avatar: '/placeholder.svg',
+    verified:true
   }
 ];
