@@ -1,4 +1,4 @@
-const url = "https://anantattire-dvk2.onrender.com/";
+const url = "https://anantattire-dvk2.onrender.com";
 // const url = "http://localhost:5000"
 const ApiConfig = {
   url,
