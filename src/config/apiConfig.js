@@ -6,6 +6,6 @@ const ApiConfig = {
   getproductById: (id)=> `${url}/api/products/${id}`,
   category: `${url}/api/categories`,
   otpLogin: `${url}/auth/otp-login`,
-
+  query: `${url}/api/queries`,
 }
 export default ApiConfig;

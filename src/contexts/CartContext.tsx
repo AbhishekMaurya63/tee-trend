@@ -28,7 +28,7 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
     case 'ADD_TO_CART': {
       const { product, quantity, size, color } = action.payload;
       const existingItemIndex = state.items.findIndex(
-        item => item.product.id === product.id && item.size === size && item.color === color
+        item => item.product._id === product._id && item.size === size && item.color === color
       );
 
       let newItems: CartItem[];
@@ -42,16 +42,16 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
         newItems = [...state.items, { product, quantity, size, color }];
       }
 
-      const newTotal = newItems.reduce((sum, item) => sum + (item.product.price * item.quantity), 0);
+      const newTotal = newItems.reduce((sum, item) => sum + (item.product.discountedPrice * item.quantity), 0);
       return { items: newItems, total: newTotal };
     }
 
     case 'REMOVE_FROM_CART': {
       const { productId, size, color } = action.payload;
       const newItems = state.items.filter(
-        item => !(item.product.id === productId && item.size === size && item.color === color)
+        item => !(item.product._id === productId && item.size === size && item.color === color)
       );
-      const newTotal = newItems.reduce((sum, item) => sum + (item.product.price * item.quantity), 0);
+      const newTotal = newItems.reduce((sum, item) => sum + (item.product.discountedPrice * item.quantity), 0);
       return { items: newItems, total: newTotal };
     }
 
@@ -62,11 +62,11 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
       }
 
       const newItems = state.items.map(item =>
-        item.product.id === productId && item.size === size && item.color === color
+        item.product._id === productId && item.size === size && item.color === color
           ? { ...item, quantity }
           : item
       );
-      const newTotal = newItems.reduce((sum, item) => sum + (item.product.price * item.quantity), 0);
+      const newTotal = newItems.reduce((sum, item) => sum + (item.product.discountedPrice * item.quantity), 0);
       return { items: newItems, total: newTotal };
     }
 
@@ -74,7 +74,7 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
       return { items: [], total: 0 };
 
     case 'LOAD_CART': {
-      const newTotal = action.payload.reduce((sum, item) => sum + (item.product.price * item.quantity), 0);
+      const newTotal = action.payload.reduce((sum, item) => sum + (item.product.discountedPrice * item.quantity), 0);
       return { items: action.payload, total: newTotal };
     }
 
@@ -107,6 +107,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const removeFromCart = (productId: string, size: string, color: string) => {
+    console.log(productId,size,color,"2")
     dispatch({ type: 'REMOVE_FROM_CART', payload: { productId, size, color } });
   };
 
