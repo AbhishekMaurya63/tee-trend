@@ -7,5 +7,6 @@ const ApiConfig = {
   category: `${url}/api/categories`,
   otpLogin: `${url}/auth/otp-login`,
   query: `${url}/api/queries`,
+  contact: `${url}/api/contact`,
 }
 export default ApiConfig;
