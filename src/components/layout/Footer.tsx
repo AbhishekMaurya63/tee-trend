@@ -21,13 +21,13 @@ const Footer = () => {
               Premium luxury clothing designed for the modern connoisseur. Experience elegance redefined with our exquisite collections.
             </p>
             <div className="flex space-x-5 pt-2">
-              <a href="#" className="text-amber-600 hover:text-amber-800 transition-colors duration-300 transform hover:scale-110">
+              {/* <a href="#" className="text-amber-600 hover:text-amber-800 transition-colors duration-300 transform hover:scale-110">
                 <Facebook className="h-6 w-6" />
               </a>
               <a href="#" className="text-amber-600 hover:text-amber-800 transition-colors duration-300 transform hover:scale-110">
                 <Twitter className="h-6 w-6" />
-              </a>
-              <a href="#" className="text-amber-600 hover:text-amber-800 transition-colors duration-300 transform hover:scale-110">
+              </a> */}
+              <a href="https://www.instagram.com/anant_attire?igsh=bTEzMmhmMGFzczJq" target='_blank' className="text-amber-600 hover:text-amber-800 transition-colors duration-300 transform hover:scale-110">
                 <Instagram className="h-6 w-6" />
               </a>
             </div>
@@ -84,7 +84,8 @@ const Footer = () => {
                 </div>
                 <div>
                   <p className="font-medium text-amber-900">Phone</p>
-                  <p className="text-amber-700/90">+91 98765 43210</p>
+                  <p className="text-amber-700/90">+91 9236862521</p>
+                  <p className="text-amber-700/90">+91 8423537845</p>
                 </div>
               </div>
               
@@ -94,7 +95,8 @@ const Footer = () => {
                 </div>
                 <div>
                   <p className="font-medium text-amber-900">Email</p>
-                  <p className="text-amber-700/90">info@anantattire.com</p>
+                  <p className="text-amber-700/90">anantattire355@gmail.com</p>
+                  <p className="text-amber-700/90">anantmaurya355@gmail.com</p>
                 </div>
               </div>
               
@@ -104,7 +106,7 @@ const Footer = () => {
                 </div>
                 <div>
                   <p className="font-medium text-amber-900">Address</p>
-                  <p className="text-amber-700/90">123 Luxury Avenue, Mumbai 400001</p>
+                  <p className="text-amber-700/90">Besahupur Shakarmandi, Sadar Jaunpur 222001 Uttar Pradesh, India</p>
                 </div>
               </div>
             </div>
@@ -114,7 +116,7 @@ const Footer = () => {
         <div className="mt-12 pt-8 border-t border-amber-200 text-center">
           <p className="text-amber-700/80 text-sm flex items-center justify-center">
             Made with <Heart className="h-4 w-4 text-amber-600 mx-1" /> in India • 
-            <span className="ml-1">&copy; 2024 AnantAttire. All rights reserved.</span>
+            <span className="ml-1">&copy; 2025 AnantAttire. All rights reserved.</span>
           </p>
         </div>
       </div>

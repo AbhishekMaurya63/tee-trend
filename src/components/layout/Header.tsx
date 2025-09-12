@@ -148,13 +148,13 @@ const Header = () => {
           </Button>
           
           {/* User Account */}
-          <Button 
+          {/* <Button 
             variant="ghost" 
             size="icon" 
             className="hidden md:flex text-gray-600 hover:text-amber-700 hover:bg-amber-50/50"
           >
             <User className="h-4 w-4" />
-          </Button>
+          </Button> */}
           
           {/* Shopping Cart */}
           <Link to="/cart">
@@ -269,14 +269,14 @@ const Header = () => {
               ))}
               
               <div className="pt-4 mt-2 border-t border-amber-200">
-                <Link 
+                {/* <Link 
                   to="/account" 
                   className="flex items-center py-3 px-4 text-base font-medium text-gray-700 hover:bg-amber-50/50 hover:text-amber-600 rounded-lg transition-all duration-300"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   <User className="h-5 w-5 mr-3" />
                   My Account
-                </Link>
+                </Link> */}
                 
                 <div className="py-3 px-4">
                   <form onSubmit={handleSearchSubmit} className="relative">

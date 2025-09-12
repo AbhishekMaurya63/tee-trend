@@ -185,17 +185,16 @@ const Home = () => {
         <div className="w-16 h-16 bg-amber-100 rounded-2xl mx-auto mb-5 flex items-center justify-center">
           <Crown className="h-8 w-8 text-amber-700" />
         </div>
-        <h3 className="font-semibold text-amber-900 text-lg mb-3">Luxury Experience</h3>
-        <p className="text-amber-700/80 text-sm">From packaging to product, experience luxury at every touchpoint</p>
+        <h3 className="font-semibold text-amber-900 text-lg mb-3">Comfort Experience</h3>
+        <p className="text-amber-700/80 text-sm">From packaging to product, experience comfort at every touchpoint</p>
       </div>
     </div>
   </div>
 </section>
 
       {/* Customer Reviews */}
-<section className="py-20 bg-gradient-to-b from-amber-25 to-amber-50">
+{/* <section className="py-20 bg-gradient-to-b from-amber-25 to-amber-50">
   <div className="container mx-auto px-4 lg:px-8">
-    {/* Section Header */}
     <div className="text-center mb-16">
       <Badge className="bg-amber-500/10 text-amber-700 border-amber-400/20 px-4 py-1.5 text-sm font-medium rounded-full mb-4">
         Customer Love
@@ -208,12 +207,10 @@ const Home = () => {
       </p>
     </div>
     
-    {/* Reviews Grid */}
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       {reviews.map((review) => (
         <div key={review.id} className="group">
           <div className="bg-white rounded-2xl p-8 shadow-lg border border-amber-100 hover:shadow-xl hover:border-amber-200 transition-all duration-300 h-full flex flex-col">
-            {/* Rating Stars */}
             <div className="flex items-center space-x-1 mb-6">
               {[...Array(5)].map((_, i) => (
                 <Star
@@ -230,7 +227,7 @@ const Home = () => {
               </span>
             </div>
             
-            {/* Review Text */}
+
             <div className="flex-1 mb-8">
               <p className="text-amber-800/90 leading-relaxed text-lg italic relative">
                 <span className="absolute -left-3 -top-2 text-amber-400 text-3xl">"</span>
@@ -239,7 +236,7 @@ const Home = () => {
               </p>
             </div>
             
-            {/* Customer Info */}
+
             <div className="flex items-center space-x-4 pt-6 border-t border-amber-100">
               <div className="relative">
                 <img 
@@ -270,8 +267,8 @@ const Home = () => {
       ))}
     </div>
 
-    {/* Stats Section */}
-    {/* <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20 pt-16 border-t border-amber-200/50">
+  
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20 pt-16 border-t border-amber-200/50">
       <div className="text-center">
         <div className="text-4xl md:text-5xl font-bold text-amber-700 mb-2">4.9/5</div>
         <p className="text-amber-600/80">Average Rating</p>
@@ -288,9 +285,9 @@ const Home = () => {
         <div className="text-4xl md:text-5xl font-bold text-amber-700 mb-2">5★</div>
         <p className="text-amber-600/80">Rated Excellent</p>
       </div>
-    </div> */}
+    </div>
 
-    {/* CTA Button */}
+
     <div className="text-center mt-12">
       <Button className="bg-amber-600 hover:bg-amber-700 text-white px-8 py-6 text-base font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-amber-600/30">
         Read More Reviews
@@ -298,7 +295,7 @@ const Home = () => {
       </Button>
     </div>
   </div>
-</section>
+</section> */}
 
       {/* CTA Section */}
    <section className="py-20 relative overflow-hidden">

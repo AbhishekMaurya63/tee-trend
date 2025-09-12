@@ -94,7 +94,7 @@ const HeroSection = () => {
                   <Truck className="h-6 w-6 text-amber-700" />
                 </div>
                 <h3 className="font-bold text-amber-900 text-sm">Free Shipping</h3>
-                <p className="text-xs text-amber-700/90">Over ₹5000</p>
+                <p className="text-xs text-amber-700/90">On All Products</p>
               </div>
               
               <div className="bg-white/30 backdrop-blur-md p-4 rounded-2xl border border-white/40 text-center group hover:bg-white/40 transition-all duration-300">
@@ -109,13 +109,13 @@ const HeroSection = () => {
                 <div className="inline-flex items-center justify-center w-12 h-12 bg-amber-100 rounded-xl mb-3 group-hover:scale-110 transition-transform">
                   <Crown className="h-6 w-6 text-amber-700" />
                 </div>
-                <h3 className="font-bold text-amber-900 text-sm">Luxury</h3>
+                <h3 className="font-bold text-amber-900 text-sm">Beautifull</h3>
                 <p className="text-xs text-amber-700/90">Crafted</p>
               </div>
             </div>
           </div>
 
-          {/* Image content - on right for desktop */}
+
           {!isMobile && (
             <div className="w-full lg:w-1/2 flex justify-center lg:justify-end">
               <div className="relative max-w-md">

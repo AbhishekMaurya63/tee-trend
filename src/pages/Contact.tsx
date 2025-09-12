@@ -70,20 +70,20 @@ const Contact = () => {
   const contactInfo = [
     {
       icon: MapPin,
-      title: 'Visit Our Boutique',
-      details: ['123 Luxury Avenue', 'Mumbai 400001', 'India'],
+      title: 'Visit Our Office',
+      details: ['Besahupur shakarmandi', 'sadar jaunpur 222001 Uttar Pradesh', 'India'],
       color: 'text-amber-600'
     },
     {
       icon: Phone,
       title: 'Call Us',
-      details: ['+91 98765 43210', '+91 91234 56789', 'Mon-Sat 10am-7pm IST'],
+      details: ['+91 9236862521', '+91 8423537845', 'Mon-Sat 10am-7pm IST'],
       color: 'text-amber-600'
     },
     {
       icon: Mail,
       title: 'Email Us',
-      details: ['info@anantattire.com', 'support@anantattire.com', 'inquiries@anantattire.com'],
+      details: ['anantattire355@gmail.com', 'anantmaurya355@gmail.com'],
       color: 'text-amber-600'
     },
     {
@@ -97,11 +97,11 @@ const Contact = () => {
   const faqs = [
     {
       question: "What is your return policy?",
-      answer: "We offer a 30-day return policy for all unworn items in original condition. Luxury items must be returned with all original packaging and tags attached."
+      answer: "We offer a 7-day return policy for all unworn items in original condition. Comfort items must be returned with all original packaging and tags attached."
     },
     {
       question: "How long does shipping take?",
-      answer: "Standard shipping takes 3-5 business days within India. International shipping takes 7-14 business days. We offer express shipping options for urgent orders."
+      answer: "Standard shipping takes 5-7 business days within India. We offer express shipping options for urgent orders."
     },
     {
       question: "Do you offer custom sizing?",
@@ -109,16 +109,16 @@ const Contact = () => {
     },
     {
       question: "Are your products sustainably made?",
-      answer: "Absolutely. We're committed to sustainable luxury. Our products are crafted using eco-friendly materials and ethical production practices."
+      answer: "Absolutely. We're committed to sustainable Comfort. Our products are crafted using eco-friendly materials and ethical production practices."
     },
     {
-      question: "How do I care for my luxury garments?",
-      answer: "Each piece comes with specific care instructions. We recommend dry cleaning for most luxury items and proper storage to maintain their pristine condition."
+      question: "How do I care for my Comfort garments?",
+      answer: "Each piece comes with specific care instructions. We recommend dry cleaning for most Comfort items and proper storage to maintain their pristine condition."
     },
-    {
-      question: "Do you offer international shipping?",
-      answer: "Yes, we ship worldwide. International orders may be subject to customs duties and taxes based on your country's regulations."
-    }
+    // {
+    //   question: "Do you offer international shipping?",
+    //   answer: "Yes, we ship worldwide. International orders may be subject to customs duties and taxes based on your country's regulations."
+    // }
   ];
 
   return (
@@ -139,7 +139,7 @@ const Contact = () => {
             Contact <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-amber-400">AnantAttire</span>
           </h1>
           <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto text-amber-100/90 leading-relaxed">
-            Have questions about our luxury collections? Need personalized styling advice? 
+            Have questions about our Comfort collections? Need personalized styling advice? 
             Our concierge team is here to provide exceptional service and support.
           </p>
         </div>
@@ -209,7 +209,7 @@ const Contact = () => {
                       onChange={handleInputChange}
                       required
                       rows={6}
-                      placeholder="Tell us how we can assist you with your luxury needs..."
+                      placeholder="Tell us how we can assist you with your Comfort needs..."
                       className="w-full px-3 py-2 border border-amber-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
                     />
                   </div>
@@ -273,7 +273,7 @@ const Contact = () => {
               Frequently Asked Questions
             </h2>
             <p className="text-xl text-amber-700 max-w-2xl mx-auto">
-              Quick answers to common questions about our luxury services
+              Quick answers to common questions about our Comfort services
             </p>
           </div>
 
@@ -300,31 +300,34 @@ const Contact = () => {
         </div>
 
         {/* Map Section */}
-        <div className="mt-20">
-          <div className="bg-white rounded-xl shadow-2xl border border-amber-200 overflow-hidden">
-            <div className="bg-gradient-to-r from-amber-50 to-amber-100 border-b border-amber-200 px-6 py-4">
-              <h2 className="text-2xl text-amber-900 font-semibold flex items-center">
-                <MapPin className="h-6 w-6 mr-3 text-amber-600" />
-                Visit Our Luxury Boutique
-              </h2>
-            </div>
-            <div className="p-8">
-              <div className="aspect-video bg-gradient-to-br from-amber-100 to-amber-50 rounded-2xl border-2 border-amber-200 flex items-center justify-center shadow-inner">
-                <div className="text-center p-8">
-                  <div className="w-16 h-16 bg-gradient-to-br from-amber-500 to-amber-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                    <MapPin className="h-8 w-8 text-white" />
-                  </div>
-                  <h3 className="text-xl font-semibold text-amber-900 mb-3">AnantAttire Boutique</h3>
-                  <p className="text-amber-700 mb-2">123 Luxury Avenue</p>
-                  <p className="text-amber-700 mb-4">Mumbai 400001, India</p>
-                  <p className="text-sm text-amber-600">
-                    Interactive map integration would be implemented here
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div className="mt-20">
+  <div className="bg-white rounded-xl shadow-2xl border border-amber-200 overflow-hidden">
+    <div className="bg-gradient-to-r from-amber-50 to-amber-100 border-b border-amber-200 px-6 py-4">
+      <h2 className="text-2xl text-amber-900 font-semibold flex items-center">
+        <MapPin className="h-6 w-6 mr-3 text-amber-600" />
+        Visit Our Comfort Office
+      </h2>
+    </div>
+    <div className="p-8">
+      <div className="aspect-video bg-gradient-to-br from-amber-100 to-amber-50 rounded-2xl border-2 border-amber-200 flex items-center justify-center shadow-inner overflow-hidden">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2961.441682869685!2d82.6880278!3d25.769613199999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399039b04bd9a7d1%3A0x60002fd6181a1bb4!2sAnant%20attire!5e1!3m2!1sen!2sin!4v1757671733568!5m2!1sen!2sin"
+          width="100%"
+          height="100%"
+          style={{ border: 0 }}
+          allowFullScreen=""
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+        ></iframe>
+      </div>
+      <div className="text-center mt-6">
+        <h3 className="text-xl font-semibold text-amber-900 mb-2">AnantAttire Office</h3>
+        <p className="text-amber-700">Besahupur jaunpur, India </p>
+      </div>
+    </div>
+  </div>
+</div>
+
 
         {/* Support Banner */}
         <div className="mt-16 bg-gradient-to-r from-amber-600 to-amber-700 rounded-2xl p-8 text-center text-white shadow-2xl">
@@ -332,7 +335,7 @@ const Contact = () => {
             <HeadphonesIcon className="h-12 w-12 mx-auto mb-4 text-amber-200" />
             <h3 className="text-2xl font-semibold mb-3">Need Immediate Assistance?</h3>
             <p className="text-amber-100 mb-6">
-              Our luxury concierge team is available to provide personalized service and answer your questions.
+              Our Comfort concierge team is available to provide personalized service and answer your questions.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button className="bg-white text-amber-700 hover:bg-amber-50 px-8 py-2 rounded-md font-medium inline-flex items-center">
