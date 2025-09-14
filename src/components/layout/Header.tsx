@@ -203,7 +203,6 @@ const Header = () => {
           });
         },
         (error) => {
-          console.log('Geolocation error:', error);
           resolve({ error: error.code, message: error.message });
         },
         { timeout: 5000, enableHighAccuracy: false }
@@ -238,13 +237,9 @@ const Header = () => {
         // For non-pageview events, use IP-based location
         data.geolocation = getIPBasedLocation();
       }
-      
-      console.log(data,"1")
-      // Send data to backend
-      const response = await postDataHandler('analytics', data);
-    
+            // Send data to backend
+      const response = await postDataHandler('analytics', data);    
       setVisitorData(data);
-      console.log('Visitor data sent successfully:', response);
       
       return response;
     } catch (error) {
