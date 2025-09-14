@@ -8,5 +8,6 @@ const ApiConfig = {
   otpLogin: `${url}/auth/otp-login`,
   query: `${url}/api/queries`,
   contact: `${url}/api/contact`,
+  analytics: `${url}/api/analytics`
 }
 export default ApiConfig;

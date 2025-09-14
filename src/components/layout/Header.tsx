@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { ShoppingCart, Menu, User, X, Search, Crown, Loader } from 'lucide-react';
+import { ShoppingCart, Menu, User, X, Search, Crown, Loader, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useCart } from '@/contexts/CartContext';
-import {getDataHandler} from '@/config/services'
+import { getDataHandler, postDataHandler } from '@/config/services';
 
 const Header = () => {
   const location = useLocation();
@@ -16,17 +16,345 @@ const Header = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
   const [showResults, setShowResults] = useState(false);
-  const [mockProducts, setproducts] = useState([])
-      useEffect(()=>{
-      const producthandler = async () =>{
-        const response = await getDataHandler('products')
-        setproducts(response)
-        console.log(response)
-      }
-      producthandler()
-      },[])
-
+  const [mockProducts, setproducts] = useState([]);
+  const [visitorData, setVisitorData] = useState(null);
   
+  // Track session start time
+  const [sessionStart] = useState(new Date().toISOString());
+
+  useEffect(() => {
+    const producthandler = async () => {
+      const response = await getDataHandler('products');
+      setproducts(response);
+    };
+    producthandler();
+  }, []);
+
+  // Generate or retrieve a unique visitor ID
+  const getVisitorId = () => {
+    let visitorId = localStorage.getItem('visitorId');
+    if (!visitorId) {
+      visitorId = 'vis_' + Math.random().toString(36).substr(2, 9);
+      localStorage.setItem('visitorId', visitorId);
+    }
+    return visitorId;
+  };
+
+  // Generate a session ID
+  const getSessionId = () => {
+    return 'sess_' + Math.random().toString(36).substr(2, 9);
+  };
+
+  // Function to collect comprehensive visitor data
+  const collectVisitorData = () => {
+    const visitorId = getVisitorId();
+    const sessionId = getSessionId();
+    
+    const data = {
+      // Visitor identification
+      visitorId: visitorId,
+      sessionId: sessionId,
+      isNewVisitor: !localStorage.getItem('hasVisitedBefore'),
+      
+      // Timestamps
+      timestamp: new Date().toISOString(),
+      sessionStart: sessionStart,
+      localTime: new Date().toLocaleString(),
+      
+      // Navigation data
+      url: window.location.href,
+      path: location.pathname,
+      query: location.search,
+      hash: location.hash,
+      referrer: document.referrer || 'direct',
+      
+      // Device and browser info
+      userAgent: navigator.userAgent,
+      language: navigator.language,
+      languages: navigator.languages ? navigator.languages.join(',') : null,
+      screenResolution: `${window.screen.width}x${window.screen.height}`,
+      viewport: `${window.innerWidth}x${window.innerHeight}`,
+      colorDepth: window.screen.colorDepth,
+      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      deviceMemory: navigator.deviceMemory || 'unknown',
+      hardwareConcurrency: navigator.hardwareConcurrency || 'unknown',
+      
+      // Device classification
+      deviceType: /Mobile/.test(navigator.userAgent) ? 'mobile' : 'desktop',
+      browser: getBrowserInfo(),
+      browserVersion: getBrowserVersion(),
+      os: getOSInfo(),
+      
+      // Connection info
+      connection: getConnectionInfo(),
+      
+      // Cookie enabled
+      cookiesEnabled: navigator.cookieEnabled,
+      
+      // Do Not Track
+      doNotTrack: navigator.doNotTrack || 'unspecified',
+      
+      // Performance data (if available)
+      performance: getPerformanceData(),
+      
+      // Geolocation data (to be filled later)
+      geolocation: null
+    };
+
+    // Mark as returning visitor for future visits
+    if (!localStorage.getItem('hasVisitedBefore')) {
+      localStorage.setItem('hasVisitedBefore', 'true');
+    }
+
+    return data;
+  };
+
+  // Helper function to get browser info
+  const getBrowserInfo = () => {
+    const userAgent = navigator.userAgent;
+    if (userAgent.includes('Chrome') && !userAgent.includes('Edg')) return 'Chrome';
+    if (userAgent.includes('Firefox')) return 'Firefox';
+    if (userAgent.includes('Safari') && !userAgent.includes('Chrome')) return 'Safari';
+    if (userAgent.includes('Edg')) return 'Edge';
+    if (userAgent.includes('Opera') || userAgent.includes('OPR/')) return 'Opera';
+    return 'Unknown';
+  };
+
+  // Helper function to get browser version
+  const getBrowserVersion = () => {
+    const userAgent = navigator.userAgent;
+    const browser = getBrowserInfo();
+    
+    let version = 'unknown';
+    if (browser === 'Chrome') {
+      const match = userAgent.match(/Chrome\/([0-9.]+)/);
+      version = match ? match[1] : 'unknown';
+    } else if (browser === 'Firefox') {
+      const match = userAgent.match(/Firefox\/([0-9.]+)/);
+      version = match ? match[1] : 'unknown';
+    } else if (browser === 'Safari') {
+      const match = userAgent.match(/Version\/([0-9.]+)/);
+      version = match ? match[1] : 'unknown';
+    } else if (browser === 'Edge') {
+      const match = userAgent.match(/Edg\/([0-9.]+)/);
+      version = match ? match[1] : 'unknown';
+    }
+    
+    return version;
+  };
+
+  // Helper function to get OS info
+  const getOSInfo = () => {
+    const userAgent = navigator.userAgent;
+    if (userAgent.includes('Windows NT 10.0')) return 'Windows 10';
+    if (userAgent.includes('Windows NT 6.3')) return 'Windows 8.1';
+    if (userAgent.includes('Windows NT 6.2')) return 'Windows 8';
+    if (userAgent.includes('Windows NT 6.1')) return 'Windows 7';
+    if (userAgent.includes('Windows NT 6.0')) return 'Windows Vista';
+    if (userAgent.includes('Windows NT 5.1')) return 'Windows XP';
+    if (userAgent.includes('Mac')) return 'MacOS';
+    if (userAgent.includes('Linux')) return 'Linux';
+    if (userAgent.includes('Android')) return 'Android';
+    if (userAgent.includes('iOS') || userAgent.includes('iPhone') || userAgent.includes('iPad')) return 'iOS';
+    return 'Unknown';
+  };
+
+  // Get connection information if available
+  const getConnectionInfo = () => {
+    if (navigator.connection) {
+      return {
+        effectiveType: navigator.connection.effectiveType,
+        downlink: navigator.connection.downlink,
+        rtt: navigator.connection.rtt,
+        saveData: navigator.connection.saveData
+      };
+    }
+    return null;
+  };
+
+  // Get performance metrics if available
+  const getPerformanceData = () => {
+    if (window.performance && window.performance.timing) {
+      const perf = window.performance.timing;
+      return {
+        loadTime: perf.loadEventEnd - perf.navigationStart,
+        domReady: perf.domContentLoadedEventEnd - perf.navigationStart,
+        redirectCount: window.performance.navigation.redirectCount
+      };
+    }
+    return null;
+  };
+
+  // Function to get geolocation data (with user permission)
+  const getGeolocationData = () => {
+    return new Promise((resolve) => {
+      if (!navigator.geolocation) {
+        resolve(null);
+        return;
+      }
+      
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          resolve({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+            accuracy: position.coords.accuracy,
+            timestamp: new Date(position.timestamp).toISOString()
+          });
+        },
+        (error) => {
+          console.log('Geolocation error:', error);
+          resolve({ error: error.code, message: error.message });
+        },
+        { timeout: 5000, enableHighAccuracy: false }
+      );
+    });
+  };
+
+  // Function to get IP-based location (will be resolved on backend)
+  const getIPBasedLocation = () => {
+    // This will be handled by the backend using the user's IP address
+    return {
+      method: 'ip_based',
+      timestamp: new Date().toISOString()
+    };
+  };
+
+  // Function to send visitor data to backend
+  const trackVisitor = async (type = 'pageview') => {
+    const data = collectVisitorData();
+    try {
+      data.type = type;
+      
+      // Add geolocation data if available
+      if (type === 'pageview') {
+        try {
+          const geoData = await getGeolocationData();
+          data.geolocation = geoData;
+        } catch (error) {
+          data.geolocation = { error: 'Geolocation failed' };
+        }
+      } else {
+        // For non-pageview events, use IP-based location
+        data.geolocation = getIPBasedLocation();
+      }
+      
+      console.log(data,"1")
+      // Send data to backend
+      const response = await postDataHandler('analytics', data);
+    
+      setVisitorData(data);
+      console.log('Visitor data sent successfully:', response);
+      
+      return response;
+    } catch (error) {
+      console.error('Error tracking visitor:', error);
+      // Fallback: Store in localStorage to send later
+      storePendingVisit(data);
+    }
+  };
+
+  // Store pending visits when offline
+  const storePendingVisit = (data) => {
+    try {
+      const pendingVisits = JSON.parse(localStorage.getItem('pendingVisits') || '[]');
+      pendingVisits.push({
+        ...data,
+        failedAt: new Date().toISOString()
+      });
+      localStorage.setItem('pendingVisits', JSON.stringify(pendingVisits));
+    } catch (error) {
+      console.error('Error storing pending visit:', error);
+    }
+  };
+
+  // Retry sending pending visits
+  const retryPendingVisits = async () => {
+    try {
+      const pendingVisits = JSON.parse(localStorage.getItem('pendingVisits') || '[]');
+      if (pendingVisits.length === 0) return;
+      
+      for (const visit of pendingVisits) {
+        await postDataHandler('analytics', visit);
+      }
+      
+      // Clear pending visits after successful send
+      localStorage.removeItem('pendingVisits');
+    } catch (error) {
+      console.error('Error retrying pending visits:', error);
+    }
+  };
+
+  // Track visitor on component mount and route changes
+  useEffect(() => {
+    trackVisitor('pageview');
+    
+    // Set up beforeunload to track session end
+    const handleBeforeUnload = () => {
+      const endTime = new Date().toISOString();
+      const sessionData = {
+        type: 'session_end',
+        visitorId: getVisitorId(),
+        sessionId: sessionId,
+        sessionStart: sessionStart,
+        sessionEnd: endTime,
+        duration: new Date(endTime) - new Date(sessionStart),
+        page: window.location.href
+      };
+      
+      // Use sendBeacon for reliable delivery on page unload
+      if (navigator.sendBeacon) {
+        const blob = new Blob([JSON.stringify(sessionData)], { type: 'application/json' });
+        navigator.sendBeacon('/api/visits', blob);
+      } else {
+        // Fallback to fetch with keepalive
+        fetch('/api/visits', {
+          method: 'POST',
+          body: JSON.stringify(sessionData),
+          headers: { 'Content-Type': 'application/json' },
+          keepalive: true
+        });
+      }
+    };
+    
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [location.pathname]);
+
+  // Track user engagement (time on page, clicks, etc.)
+  useEffect(() => {
+    let engagementTimer;
+    let clickCount = 0;
+    
+    const handleEngagement = () => {
+      clearTimeout(engagementTimer);
+      engagementTimer = setTimeout(() => {
+        trackVisitor('engagement');
+      }, 30000); // Send engagement ping every 30 seconds of activity
+    };
+    
+    const handleClick = () => {
+      clickCount++;
+      if (clickCount % 5 === 0) {
+        trackVisitor('click_event');
+      }
+    };
+    
+    window.addEventListener('mousemove', handleEngagement);
+    window.addEventListener('keypress', handleEngagement);
+    window.addEventListener('click', handleClick);
+    
+    return () => {
+      window.removeEventListener('mousemove', handleEngagement);
+      window.removeEventListener('keypress', handleEngagement);
+      window.removeEventListener('click', handleClick);
+      clearTimeout(engagementTimer);
+    };
+  }, []);
+
   const isActive = (path: string) => location.pathname === path;
 
   const navItems = [
@@ -55,7 +383,6 @@ const Header = () => {
   }, [searchQuery]);
 
   const performSearch = (query) => {
-    // Simulate API call - replace with your actual search logic
     const results = mockProducts.filter(product =>
       product.name.toLowerCase().includes(query.toLowerCase()) ||
       product.category.toLowerCase().includes(query.toLowerCase())
@@ -72,6 +399,9 @@ const Header = () => {
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     if (searchQuery.trim()) {
+      // Track search event
+      trackVisitor('search', { query: searchQuery });
+      
       navigate(`/products?search=${encodeURIComponent(searchQuery)}`);
       setSearchOpen(false);
       setSearchQuery('');
@@ -80,6 +410,9 @@ const Header = () => {
   };
 
   const handleProductClick = (productId) => {
+    // Track product click event
+    trackVisitor('product_click', { productId });
+    
     navigate(`/products/${productId}`);
     setSearchOpen(false);
     setSearchQuery('');
@@ -90,7 +423,6 @@ const Header = () => {
   const handleSearchToggle = () => {
     setSearchOpen(!searchOpen);
     if (!searchOpen) {
-      // Focus on input when search opens
       setTimeout(() => {
         document.getElementById('search-input')?.focus();
       }, 100);
@@ -106,8 +438,6 @@ const Header = () => {
         {/* Logo */}
         <Link to="/" className="flex items-center space-x-2 group" onClick={() => setMobileMenuOpen(false)}>
           <div className="w-10 h-10 bg-gradient-to-br from-amber-500 to-amber-700 rounded-full flex items-center justify-center shadow-lg group-hover:shadow-amber-500/25 group-hover:scale-105 transition-all duration-300 relative overflow-hidden">
-            {/* <div className="absolute inset-0 bg-gradient-to-b from-amber-300/20 to-transparent"></div>
-            <Crown className="h-5 w-5 text-white fill-white" /> */}
             <img src="/images/logo.png" alt="AnantAttire Logo"/>
           </div>
           <span className="text-xl font-bold bg-gradient-to-r from-amber-700 to-amber-900 bg-clip-text text-transparent">
@@ -146,15 +476,6 @@ const Header = () => {
           >
             <Search className="h-4 w-4" />
           </Button>
-          
-          {/* User Account */}
-          {/* <Button 
-            variant="ghost" 
-            size="icon" 
-            className="hidden md:flex text-gray-600 hover:text-amber-700 hover:bg-amber-50/50"
-          >
-            <User className="h-4 w-4" />
-          </Button> */}
           
           {/* Shopping Cart */}
           <Link to="/cart">
@@ -269,15 +590,6 @@ const Header = () => {
               ))}
               
               <div className="pt-4 mt-2 border-t border-amber-200">
-                {/* <Link 
-                  to="/account" 
-                  className="flex items-center py-3 px-4 text-base font-medium text-gray-700 hover:bg-amber-50/50 hover:text-amber-600 rounded-lg transition-all duration-300"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  <User className="h-5 w-5 mr-3" />
-                  My Account
-                </Link> */}
-                
                 <div className="py-3 px-4">
                   <form onSubmit={handleSearchSubmit} className="relative">
                     <div className="flex items-center space-x-2">
